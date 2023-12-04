@@ -1,0 +1,27 @@
+.header {
+    position: fixed;
+    top: 25px;
+    z-index: 10;
+
+    &__content {
+        display: flex;
+        gap: 26px;
+        align-items: center;
+    }
+    
+    &__home {
+        height: 17px;
+        width: 17px;
+    }
+
+    &__separator {
+        height: 17px;
+    }
+
+    &__text {
+        font-size: 17px;
+        font-family: Circe;
+        font-weight: normal;
+        text-transform: uppercase;
+    }
+}

@@ -1,0 +1,209 @@
+.home {
+    perspective: 400px;
+    position: relative;
+    height: 768px;
+    scroll-snap-align: start;
+    z-index: 1;
+
+    &__content {
+        padding-top: 160px;
+        font-family: Din Pro;
+        z-index: 2;
+    }
+
+    &__hello {
+        font-size: 27px;
+        text-transform: uppercase;
+    }
+
+    &__text {
+        position: relative;
+        font-family: Gilroy;
+        font-size: 109px;
+        text-transform: uppercase;
+        font-weight: 300;
+        letter-spacing: 5px;
+        z-index: 2;
+
+        &.bold {
+            font-weight: 800;
+        }
+    }
+    
+    &__button {
+        margin: -106px 65px 0 auto;
+        width: 288px;
+    }
+
+    .item__arrow {
+        width: 20px;
+        height: 14px;
+        vertical-align: middle;
+    }
+
+    .absolute {
+        position: absolute;
+        
+    }
+
+    .bacteria {
+        top: 72.5px;
+        width: 214px;
+        height: 115.5px;
+    }
+
+    .big-sperm {
+        top: 155px;
+        left: 432.2px;
+        width: 591.5px;
+        height: 92.5px;
+        z-index: 2;
+    }
+
+    .small-sperm {
+        top: 593px;
+        width: 413.5px;
+        height: 183px;
+    }
+
+    @keyframes bakti-1-move {
+        0% {
+            transform: translate(0, 0)
+        }
+        50% {
+            transform: translate(70px, 60px);
+        }
+        60% {
+            transform: translate(60px, 75px);
+        }
+        77% {
+            transform: translate(40px, 35px);
+        }
+    }
+
+    .bakti-1 {
+        top: 503.5px;
+        left: 22.5px;
+        width: 73px;
+        height: 71px;
+        z-index: 1;
+
+        animation:bakti-1-move 10s linear infinite;
+        animation-play-state: paused;
+    }
+
+    @keyframes bakti-2-move {
+        0% {
+            transform: translate(0, 0)
+        }
+        30% {
+            transform: translate3d(-20px, -10px, 30px);
+        }
+        35% {
+            transform: translate3d(-25px, -8px, 30px);
+        }
+        70% {
+            transform: translate3d(-40px, 10px, 0px);
+        }
+        90% {
+            transform: translate(-15px, 5px);
+        }
+    }
+
+    .bakti-2 {
+        top: 61.5px;
+        left: 744.5px;
+        width: 62.5px;
+        height: 57px;
+
+       animation:bakti-2-move 10s linear infinite;
+       animation-play-state: paused;
+    }
+
+    .bakti-3 {
+        top: 30px;
+        left: 917px;
+        width: 71px;
+        height: 68.5px;
+    }
+
+    .bakti-4 {
+        top: 631px;
+        left: 347.5px;
+        width: 84.5px;
+        height: 77.5px;
+    }
+
+    @keyframes virus-1-move {
+        0% {
+            transform: translate(0, 0) rotate(0deg)
+        }
+        15% {
+            transform: translate(-50px, 20px) rotate(54deg)
+        }
+        27% {
+            transform: translate( -90px, 10px) rotate(97.2deg)
+        }
+        51% {
+            transform: translate( -170px, -60px) rotate(183.6deg)
+        }
+        56% {
+            transform: translate( -160px, -85px) rotate(201.6deg)
+        }
+        63% {
+            transform: translate( -130px, -100px) rotate(226.8deg)
+        }
+        82% {
+            transform: translate( -60px, -70px) rotate(295.2deg)
+        }
+        100% {
+            transform: translate( 0, 0) rotate(360deg)
+        }
+    }
+
+    @keyframes virus-1-rotation {
+        0% {
+            transform: rotate(0deg)
+        }
+        100% {
+            transform: rotate(360deg)
+        }
+    }
+
+    .virus-1 {
+        animation: virus-1-move 20s linear infinite;
+        top: 200.5px;
+        left: 861.5px;
+        width: 110.5px;
+        height: 113.5px;
+        z-index: 3;
+        animation-play-state: paused;
+    }
+
+    @keyframes virus-2-move {
+        0% {
+            transform: translate3d(0, 0, 0);
+        }
+        33% {
+            transform: translate3d(-20px, -15px, 30px);
+        }
+        66% {
+            transform: translate3d(-40px, -10px, -15px);
+        }
+    }
+      
+
+    .virus-2 {
+        animation-play-state: paused;
+        top: 641.5px;
+        left: 542px;
+        width: 227.5px;
+        height: 224px;
+    }
+}
+
+.home.active {
+    .absolute {
+        animation-play-state: running;
+    }
+}
