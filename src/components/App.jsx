@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import '../css/App.scss'
 import { Home } from "./Home";
 import { Message } from "./Message";
@@ -9,7 +9,12 @@ import { Header } from "./Header";
 export const App = () => {
     const homeRef = useRef(null);
     const messageRef = useRef(null);
-    const brendRef = useRef(null);
+
+    const [pagesStatus, setPagesStatus] = useState([
+        {id: 1, page: 'home', active: true},
+        {id: 2, page: 'message', active: false},
+        {id: 3, page: 'brend', active: false}
+    ])
 
     const onScroll = (() => {
         var ticking = false;
@@ -18,31 +23,24 @@ export const App = () => {
             if (!ticking) {
                 window.requestAnimationFrame(function () {
                     var documentScrollLeft = e.target.scrollLeft;
+                    let newStatus
                     if (documentScrollLeft >= 0 && documentScrollLeft < 1024) {
-                        if (homeRef.current) {
-                            if (!homeRef.current.classList.contains('active')) {
-                                homeRef.current.classList.add('active'); 
-                                messageRef.current.classList.remove('active'); 
-                                brendRef.current.classList.remove('active'); 
-                            }
-                        }
+                        newStatus = [...pagesStatus].map(el => {
+                            if (el.page === 'home') return {...el, active: true}
+                            else return {...el, active: false}
+                        })
                     } else if (documentScrollLeft >= 1024 && documentScrollLeft < 2048) {
-                        if (messageRef.current) {
-                            if (!messageRef.current.classList.contains('active')) {
-                                messageRef.current.classList.add('active'); 
-                                homeRef.current.classList.remove('active'); 
-                                brendRef.current.classList.remove('active'); 
-                            }
-                        }
+                        newStatus = [...pagesStatus].map(el => {
+                            if (el.page === 'message') return {...el, active: true}
+                            else return {...el, active: false}
+                        })
                     } else if (documentScrollLeft >= 2048) {
-                        if (brendRef.current) {
-                            if (!brendRef.current.classList.contains('active')) {
-                                brendRef.current.classList.add('active'); 
-                                messageRef.current.classList.remove('active'); 
-                                homeRef.current.classList.remove('active'); 
-                            }
-                        }
+                        newStatus = [...pagesStatus].map(el => {
+                            if (el.page === 'brend') return {...el, active: true}
+                            else return {...el, active: false}
+                        })
                     }
+                    setPagesStatus(newStatus)
             
                     ticking = false;
                 });
@@ -52,10 +50,10 @@ export const App = () => {
     })();
     return (
         <div className="wrapper" onScroll={onScroll}>
-            <Header />
-            <Home homeRef={homeRef}/>
-            <Message messageRef={messageRef}/>
-            <Brend brendRef={brendRef}/>
+            <Header homeRef={homeRef}/>
+            <Home homeRef={homeRef} messageRef={messageRef} active={pagesStatus[0].active}/>
+            <Message messageRef={messageRef} active={pagesStatus[1].active}/>
+            <Brend active={pagesStatus[2].active}/>
             <Footer />
         </div>
     )

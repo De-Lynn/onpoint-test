@@ -15,16 +15,14 @@ import '../css/Home.scss'
 export const Home = (props) => {
 
     const goToMessage = () => {
-        const message = document.querySelector('.message');  
-
-        message.scrollIntoView({ 
+        props.messageRef.current.scrollIntoView({ 
             block: 'nearest',
             behavior: 'smooth', 
         });
     }
 
     return (
-        <div className="home active" ref={props.homeRef}>
+        <div className={`home ${props.active ? 'active' : ''} `} ref={props.homeRef}>
             <style dangerouslySetInnerHTML={{
                 __html:`
                     .home {

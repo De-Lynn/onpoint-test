@@ -8,7 +8,7 @@ import '../css/Message.scss'
 
 export const Message = (props) => {
     return (
-        <div className="message" ref={props.messageRef}>
+        <div className={`message ${props.active ? 'active' : ''}`} ref={props.messageRef}>
             <style dangerouslySetInnerHTML={{
                 __html:`
                     .message {

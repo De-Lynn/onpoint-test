@@ -24,7 +24,7 @@ import Bubble4 from '../svg/brend/bubbles/bubble-4.svg'
 import '../css/Brend.scss'
 
 export const Brend = (props) => {
-    const [activePageNumber, setActivePage] = useState(0)
+    const [activePageNumber, setActivePage] = useState(1)
     const advantagesList = [
         {id: 1, number: '01', text: 'Lorem ipsum dolor sit amet, consectetur iscing elit'},
         {id: 2, number: '02', text: 'Faucibus pulvinar elementum integer enim'},
@@ -34,43 +34,54 @@ export const Brend = (props) => {
         {id: 6, number: '06', text: 'Venenatis lectus magna fringilla urna'},
     ]
 
-    const toNextPage = () => {
-        const pagesListParent = document.querySelector('.navigation__pages')
-        const pagesList = document.querySelectorAll('.page__item')
+    const [pages, setPages] = useState([
+        {id: 1, active: true},
+        {id: 2, active: false}
+    ])
 
-        if (activePageNumber+1 === pagesList.length) {
+    const toNextPage = () => {
+        if (activePageNumber+1 > pages.length) {
             return
         } else {
-            pagesListParent.insertBefore(pagesList[activePageNumber], pagesList[activePageNumber+2])
             setActivePage(activePageNumber+1)
+            let newPages = [...pages].map(el => {
+                if (el.id === activePageNumber+1) {
+                    return {...el, active: true}
+                } else {
+                    return {...el, active: false}
+                }
+            })
+            setPages(newPages)
         }
     }
 
     const toPrevPage = () => {
-        const pagesListParent = document.querySelector('.navigation__pages')
-        const pagesList = document.querySelectorAll('.page__item')
-
-        if (activePageNumber === 0) {
+        if (activePageNumber === 1) {
             return
         } else {
-            pagesListParent.insertBefore(pagesList[activePageNumber], pagesList[activePageNumber-1])
             setActivePage(activePageNumber-1)
-        }
+            let newPages = [...pages].map(el => {
+                if (el.id === activePageNumber-1) {
+                    return {...el, active: true}
+                } else {
+                    return {...el, active: false}
+                }
+            })
+            setPages(newPages)
+        }        
     }
 
     const [isAdvantagesDisplay, setAdvantagesDisplay] = useState(false)
     const openAdvantages = () => {
         setAdvantagesDisplay(true)
-        props.brendRef.current.classList.add("advantages")
     }
 
     const closeAdvantages = () => {
         setAdvantagesDisplay(false)
-        props.brendRef.current.classList.remove("advantages")
     }
 
     return (
-        <div className={"brend"} ref={props.brendRef}>
+        <div className={`brend ${isAdvantagesDisplay ? 'advantages' : '' } ${props.active ? 'active' : ''}`}>
             <style dangerouslySetInnerHTML={{
                 __html:`
                     .brend {
@@ -85,7 +96,7 @@ export const Brend = (props) => {
                 `
             }}></style>
             {!isAdvantagesDisplay && 
-                <div className="brend__content _container"> {/*message */}
+                <div className='brend__content _container'> {/*message */}
                     <BrendText title="Ключевое сообщение"/>
                     <div className="brend__description">
                         <div className="description__card big">
@@ -114,7 +125,7 @@ export const Brend = (props) => {
                     <div className="brend__list">
                         {
                             advantagesList
-                            .slice(3*(activePageNumber+1)-3, 3*(activePageNumber+1))
+                            .slice(3*(activePageNumber)-3, 3*(activePageNumber))
                             .map(el => <AdvantagesListItem key={el.id} number={el.number} text={el.text}/>)
                         }
                     </div>
@@ -123,8 +134,10 @@ export const Brend = (props) => {
                             onClick={toPrevPage}
                         />
                         <div className="navigation__pages">
-                            <FullDot className='page__item' viewBox='0 0 21 21'/>
-                            <EmptyDot className='page__item' viewBox='0 0 24 24'/>
+                            {pages.map(el => {
+                                if (el.active) return <FullDot key={el.id} className='page__item' viewBox='0 0 21 21'/>
+                                else return <EmptyDot key={el.id} className='page__item' viewBox='0 0 24 24'/>
+                            })}
                         </div>
                         <SimpleArrow className='navigation__arrow next' viewBox='0 0 18 31'
                             onClick={toNextPage}

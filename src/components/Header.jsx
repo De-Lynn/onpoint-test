@@ -2,12 +2,10 @@ import HomeIcon from "../svg/header/home.svg";
 import Separator from '../svg/header/vert-separator.svg'
 import '../css/Header.scss'
 
-export const Header = () => {
+export const Header = (props) => {
 
     const goToHome = () => {
-        const home = document.querySelector('.home');  
-
-        home.scrollIntoView({ 
+        props.homeRef.current.scrollIntoView({ 
             block: 'nearest',
             behavior: 'smooth',
         });
