@@ -6,17 +6,14 @@ import Sperm4 from '../svg/message/sperm-4.svg'
 import Sperm5 from '../svg/message/sperm-5.svg'
 import '../css/Message.scss'
 
+const style = {
+    background: `url(${bg2}) no-repeat`,
+    backgroundSize: '100%',
+}
+
 export const Message = (props) => {
     return (
-        <div className={`message ${props.active ? 'active' : ''}`} ref={props.messageRef}>
-            <style dangerouslySetInnerHTML={{
-                __html:`
-                    .message {
-                        background: url(${bg2}) no-repeat;
-                        background-size: 100%;
-                    }
-                `
-            }}></style>
+        <div className={`message ${props.active ? 'active' : ''}`} ref={props.messageRef} style={style}>
             <div className="message__content _container">
                 <div className="message__title">Текст <br />сообщения</div>
                 <div className='message__background'></div>

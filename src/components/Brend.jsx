@@ -23,52 +23,39 @@ import Bubble3 from '../svg/brend/bubbles/bubble-3.svg'
 import Bubble4 from '../svg/brend/bubbles/bubble-4.svg'
 import '../css/Brend.scss'
 
+const advantagesList = [
+    {id: 1, number: '01', text: 'Lorem ipsum dolor sit amet, consectetur iscing elit'},
+    {id: 2, number: '02', text: 'Faucibus pulvinar elementum integer enim'},
+    {id: 3, number: '03', text: 'Faucibus pulvinar elementum integer enim'},
+    {id: 4, number: '04', text: 'Mi bibendum neque egestas congue quisque egestas diam'},
+    {id: 5, number: '05', text: 'Venenatis lectus magna fringilla urna'},
+    {id: 6, number: '06', text: 'Venenatis lectus magna fringilla urna'},
+]
+
+const style = {
+    background: `url(${bg3}) no-repeat`,
+    backgroundSize: '100%',
+}
+const advantagesStyle = {
+    background: `url(${bg3}) no-repeat`,
+    backgroundSize: '100%',
+    backgroundBlendMode: 'multiply',
+    backgroundColor: 'rgba(22, 39, 62, 0.7)',
+}
+
+const pages = [{id: 1}, {id: 2}]
+
 export const Brend = (props) => {
     const [activePageNumber, setActivePage] = useState(1)
-    const advantagesList = [
-        {id: 1, number: '01', text: 'Lorem ipsum dolor sit amet, consectetur iscing elit'},
-        {id: 2, number: '02', text: 'Faucibus pulvinar elementum integer enim'},
-        {id: 3, number: '03', text: 'Faucibus pulvinar elementum integer enim'},
-        {id: 4, number: '04', text: 'Mi bibendum neque egestas congue quisque egestas diam'},
-        {id: 5, number: '05', text: 'Venenatis lectus magna fringilla urna'},
-        {id: 6, number: '06', text: 'Venenatis lectus magna fringilla urna'},
-    ]
-
-    const [pages, setPages] = useState([
-        {id: 1, active: true},
-        {id: 2, active: false}
-    ])
 
     const toNextPage = () => {
-        if (activePageNumber+1 > pages.length) {
-            return
-        } else {
-            setActivePage(activePageNumber+1)
-            let newPages = [...pages].map(el => {
-                if (el.id === activePageNumber+1) {
-                    return {...el, active: true}
-                } else {
-                    return {...el, active: false}
-                }
-            })
-            setPages(newPages)
-        }
+        if (activePageNumber+1 > pages.length) return
+        setActivePage(activePageNumber+1)
     }
 
     const toPrevPage = () => {
-        if (activePageNumber === 1) {
-            return
-        } else {
-            setActivePage(activePageNumber-1)
-            let newPages = [...pages].map(el => {
-                if (el.id === activePageNumber-1) {
-                    return {...el, active: true}
-                } else {
-                    return {...el, active: false}
-                }
-            })
-            setPages(newPages)
-        }        
+        if (activePageNumber === 1) return
+        setActivePage(activePageNumber-1)      
     }
 
     const [isAdvantagesDisplay, setAdvantagesDisplay] = useState(false)
@@ -81,20 +68,9 @@ export const Brend = (props) => {
     }
 
     return (
-        <div className={`brend ${isAdvantagesDisplay ? 'advantages' : '' } ${props.active ? 'active' : ''}`}>
-            <style dangerouslySetInnerHTML={{
-                __html:`
-                    .brend {
-                        background: url(${bg3}) no-repeat;
-                        background-size: 100%;
-                    }
-
-                    .brend.advantages {
-                        background-blend-mode: multiply;
-                        background-color: rgba(22, 39, 62, 0.7);
-                    }
-                `
-            }}></style>
+        <div className={`brend ${isAdvantagesDisplay ? 'advantages' : '' } ${props.active ? 'active' : ''}`}
+            style={!isAdvantagesDisplay ? style : advantagesStyle }
+        >
             {!isAdvantagesDisplay && 
                 <div className='brend__content _container'> {/*message */}
                     <BrendText title="Ключевое сообщение"/>
@@ -135,7 +111,7 @@ export const Brend = (props) => {
                         />
                         <div className="navigation__pages">
                             {pages.map(el => {
-                                if (el.active) return <FullDot key={el.id} className='page__item' viewBox='0 0 21 21'/>
+                                if (el.id === activePageNumber) return <FullDot key={el.id} className='page__item' viewBox='0 0 21 21'/>
                                 else return <EmptyDot key={el.id} className='page__item' viewBox='0 0 24 24'/>
                             })}
                         </div>
